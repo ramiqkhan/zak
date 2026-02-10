@@ -1,7 +1,6 @@
 import React from "react";
 
 const chefs = [
-
   {
     id: 2,
     name: "Mirko",
@@ -32,38 +31,44 @@ const chefs = [
   },
 ];
 
-
 const ChefSection = () => {
   return (
-    <div>
-      {chefs.map((chef) => (
-        <section
-          key={chef.id}
-  className={`${chef.bg} h-[60vh] flex flex-col items-center justify-center text-white`}
+    <section className="bg-gray-100 py-16 px-4">
+      <div className="max-w-6xl mx-auto text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-extrabold tracking-wider text-gray-800">
+          Meet Our Chefs
+        </h2>
+        <p className="mt-4 text-gray-600 text-sm md:text-base">
+          Passionate artists behind our signature flavors
+        </p>
+      </div>
 
-        >
-          {/* CARD */}
-          <div className="bg-black/40 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl w-[280px] text-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {chefs.map((chef) => (
+          <div
+            key={chef.id}
+            className={`${chef.bg} rounded-xl overflow-hidden shadow-2xl flex flex-col items-center text-white`}
+          >
             <img
               src={chef.img}
               alt={chef.name}
-              className="w-full h-[360px] object-cover"
+              className="w-full h-64 sm:h-72 md:h-80 object-cover"
             />
 
-            <div className="p-4 space-y-2">
-              <h2 className="text-xl font-bold tracking-widest uppercase">
+            <div className="p-4 w-full text-center space-y-2">
+              <h2 className="text-lg md:text-xl font-bold tracking-widest uppercase">
                 {chef.name}
               </h2>
-              <p className="text-sm opacity-80">{chef.country}</p>
+              <p className="text-sm md:text-base opacity-80">{chef.country}</p>
 
-              <button className="mt-3 px-4 py-2 bg-black text-white rounded-full text-xs tracking-widest hover:scale-105 transition">
+              <button className="mt-3 px-4 py-2 bg-black text-white rounded-full text-xs md:text-sm tracking-widest hover:scale-105 transition-transform">
                 SEE HIS MASTERPIECE
               </button>
             </div>
           </div>
-        </section>
-      ))}
-    </div>
+        ))}
+      </div>
+    </section>
   );
 };
 
