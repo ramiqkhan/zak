@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Search, Globe, ChevronDown, Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
 
-  // Track scroll for navbar style
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // added path only
   const leftLinks = [
-    { name: "Culture", hasDropdown: true },
-    { name: "Commitments", hasDropdown: false },
-    { name: "Our Team", hasDropdown: false },
-    { name: "News", hasDropdown: true },
+    { name: "Culture", hasDropdown: true, path: "/" },
+    { name: "Commitments", hasDropdown: false, path: "/commitments" },
+    { name: "Our Team", hasDropdown: false, path: "/team" },
+    { name: "News", hasDropdown: true, path: "/news" },
   ];
 
   const rightLinks = [
-    { name: "Products & Recipes", hasDropdown: true },
-    { name: "Where To Buy", hasDropdown: false },
+    { name: "Products & Recipes", hasDropdown: true, path: "/products" },
+    { name: "Where To Buy", hasDropdown: false, path: "/buy" },
   ];
 
   return (
@@ -44,12 +45,12 @@ const Navbar = () => {
           )}
         </button>
 
-        {/* Left Links (Desktop) */}
+        {/* Left Links */}
         <div className="hidden lg:flex items-center gap-12">
           {leftLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
-              href="#"
+              to={link.path}
               className={`group relative text-[14px] font-bold uppercase tracking-[0.25em] transition-all duration-300 ${
                 isScrolled ? "text-black" : "text-white"
               }`}
@@ -68,12 +69,15 @@ const Navbar = () => {
                   isScrolled ? "bg-black" : "bg-white"
                 }`}
               ></span>
-            </a>
+            </Link>
           ))}
         </div>
 
-        {/* Center Logo */}
-        <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center group cursor-pointer">
+        {/* Logo */}
+        <Link
+          to="/"
+          className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center group cursor-pointer"
+        >
           <h1
             className={`text-4xl sm:text-5xl md:text-6xl font-[1000] tracking-[0.35em] transition-all duration-500 ${
               isScrolled ? "text-black" : "text-white"
@@ -81,14 +85,14 @@ const Navbar = () => {
           >
             ZAK<span className="text-[14px] align-top font-black ml-1">®</span>
           </h1>
-        </div>
+        </Link>
 
-        {/* Right Links (Desktop) */}
+        {/* Right Links */}
         <div className="hidden lg:flex items-center gap-12">
           {rightLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
-              href="#"
+              to={link.path}
               className={`group relative text-[14px] font-bold uppercase tracking-[0.25em] transition-all duration-300 ${
                 isScrolled ? "text-black" : "text-white"
               }`}
@@ -107,7 +111,7 @@ const Navbar = () => {
                   isScrolled ? "bg-black" : "bg-white"
                 }`}
               ></span>
-            </a>
+            </Link>
           ))}
 
           <div className={`flex items-center gap-8 ml-4 ${isScrolled ? "text-black" : "text-white"}`}>
@@ -116,7 +120,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Search */}
         <Search className={`lg:hidden absolute right-16 sm:right-20 ${isScrolled ? "text-black" : "text-white"}`} size={26} />
       </div>
 
@@ -128,14 +131,15 @@ const Navbar = () => {
       >
         <div className="flex flex-col p-8 sm:p-12 gap-6 text-black font-black uppercase text-xl tracking-[0.25em]">
           {[...leftLinks, ...rightLinks].map((link) => (
-            <a
+            <Link
               key={link.name}
-              href="#"
+              to={link.path}
+              onClick={() => setMobileMenu(false)}
               className="flex justify-between items-center border-b border-gray-100 pb-4"
             >
               {link.name}
               {link.hasDropdown && <ChevronDown size={22} />}
-            </a>
+            </Link>
           ))}
           <div className="flex gap-6 pt-4">
             <Search size={28} />

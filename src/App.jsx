@@ -1,29 +1,25 @@
-import Navbar from './component/navbar';
-import Footer from './component/footer';
-import ZakHero from './component/sec1';
-import ProductShowcase from './component/sec2';
-import CategoryCatalog from './component/sec3';
-import HeroSection from './component/sec4';
-import ZakNews from './component/sec5';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./component/navbar";
+import Footer from "./component/footer";
+
+import Home from "../src/pages/home";
+import Team from "./pages/ourteam";
+
+
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col ">
-      
-      {/* Navbar Top */}
+    <BrowserRouter>
       <Navbar />
-
-      {/* Middle Content */}
+      
+      <Routes>
+        <Route path="/" element={<Home />} />
   
-<ZakHero/>
-<ProductShowcase/>
-<CategoryCatalog/>
-<HeroSection/>
-<ZakNews/>
-      {/* Footer Bottom */}
-      <Footer />
+        <Route path="/team" element={<Team />} />
+      </Routes>
 
-    </div>
+      <Footer />
+    </BrowserRouter>
   );
 }
 
